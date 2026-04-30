@@ -1,24 +1,17 @@
-from pathlib import Path
 from PIL import Image, ImageFilter
+from pathlib import Path
 
 
 currentPath = Path('filters')
 folderFiltredImages = Path('Filtred_images')
+listSuffixes = [".png", ".jpg"]
 
-if not folderFiltredImages.exists():
 
-    folderFiltredImages.mkdir()
-
-else:
-
-    for item in currentPath.iterdir():
-
+for item in currentPath.iterdir():
+    if item.suffix in listSuffixes:
         myImg = Image.open(item)
         filtredImage = myImg.filter(ImageFilter.CONTOUR)
         filtredImage.save(folderFiltredImages / f'filtredImage{item.name}.jpg')
         myImg.close()
-
-
-
-
-        # print(f"filtredImage{item.name}")
+else:
+        print("Thers is no file to edit")
